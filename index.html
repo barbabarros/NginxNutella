@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NginxNutella</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>NginxNutella</h1>
+        <p>Crie seu arquivo de configuração Nginx, com bastante nutella.</p>
+
+        <div class="form-container">
+            <div class="opcoes">
+                <h2>Opções Gerais</h2>
+                <div class="form-group">
+                    <label for="nome_arquivo_conf">Nome do Arquivo de Configuração:</label>
+                    <input type="text" id="nome_arquivo_conf" value="meusite.conf">
+                </div>
+                <div class="form-group">
+                    <label for="nome_servidor">Domínio (server_name):</label>
+                    <input type="text" id="nome_servidor" value="exemplo.com.br">
+                </div>
+                <div class="form-group">
+                    <label for="raiz_documentos">Caminho dos Arquivos (root):</label>
+                    <input type="text" id="raiz_documentos" value="/var/www/html">
+                </div>
+                <div class="form-group">
+                    <label for="tamanho_max_body">Tamanho Máx. do Body (client_max_body_size):</label>
+                    <input type="text" id="tamanho_max_body" value="16m">
+                </div>
+
+                <h2>Configurações Avançadas</h2>
+                <div class="form-group grupo-checkbox" id="container_http2" style="display: none;">
+                    <input type="checkbox" id="http2">
+                    <label for="http2">Ativar HTTP/2</label>
+                </div>
+                <div class="form-group grupo-checkbox">
+                    <input type="checkbox" id="gzip">
+                    <label for="gzip">Ativar Gzip</label>
+                </div>
+                <div class="form-group grupo-checkbox">
+                    <input type="checkbox" id="cabecalhos_seguranca">
+                    <label for="cabecalhos_seguranca">Adicionar Cabeçalhos de Segurança</label>
+                </div>
+
+                <h2>Proxy Reverso</h2>
+                <div class="form-group grupo-checkbox">
+                    <input type="checkbox" id="proxy_reverso">
+                    <label for="proxy_reverso">Ativar Proxy Reverso</label>
+                </div>
+                <div id="container_proxy" style="display: none;">
+                    <div class="form-group">
+                        <label for="endereco_proxy">Endereço Principal (proxy_pass para location /):</label>
+                        <input type="text" id="endereco_proxy" value="http://localhost:3000">
+                    </div>
+                    <div class="form-group grupo-checkbox">
+                        <input type="checkbox" id="suporte_ws_principal" class="suporte-ws">
+                        <label for="suporte_ws_principal">Suporte para WebSocket</label>
+                    </div>
+
+                    <div class="lista-proxy" id="proxies_adicionais">
+                        <!-- Aqui serão inseridos os proxies adicionais dinamicamente -->
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" id="adicionar_proxy" class="botao-secundario">Adicionar Mais Um
+                            Proxy</button>
+                    </div>
+                </div>
+
+                <h2>SSL (HTTPS)</h2>
+                <div class="form-group grupo-checkbox">
+                    <input type="checkbox" id="ssl">
+                    <label for="ssl">Ativar SSL (Let's Encrypt)</label>
+                </div>
+                <div id="container_opcoes_ssl" style="display: none;">
+                    <div class="form-group">
+                        <label for="certificado_ssl">Caminho do Certificado (.crt):</label>
+                        <input type="text" id="certificado_ssl"
+                            value="/etc/letsencrypt/live/exemplo.com.br/fullchain.pem">
+                    </div>
+                    <div class="form-group">
+                        <label for="chave_ssl">Caminho da Chave (.key):</label>
+                        <input type="text" id="chave_ssl" value="/etc/letsencrypt/live/exemplo.com.br/privkey.pem">
+                    </div>
+                    <div class="form-group">
+                        <p class="texto-info">O redirecionamento de HTTP para HTTPS é automático quando o SSL está
+                            ativado.</p>
+                    </div>
+                </div>
+
+                <h2>Configuração Gerada</h2>
+                <div class="form-group">
+                    <textarea id="config_nginx" readonly></textarea>
+                    <button id="botao_copiar">Copiar Configuração</button>
+                </div>
+
+                <h2>Comandos de Instalação</h2>
+                <div class="form-group">
+                    <div class="caixa-info">
+                        <h4>1. Criar e editar o arquivo de configuração:</h4>
+                        <pre id="comando_nano">sudo nano /etc/nginx/sites-available/meusite.conf</pre>
+                        <p>- Copiar conteúdo da "Configuração Gerada" para o arquivo</p>
+                        <button id="copiar_comando_nano" class="botao-pequeno">Copiar Comando</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="caixa-info" id="info_link_simbolico">
+                        <h4>2. Comando para criar link simbólico:</h4>
+                        <pre
+                            id="comando_link_simbolico">sudo ln -s /etc/nginx/sites-available/meusite.conf /etc/nginx/sites-enabled/</pre>
+                        <button id="copiar_link_simbolico" class="botao-pequeno">Copiar Comando</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="caixa-info">
+                        <h4>3. Reiniciar o Nginx:</h4>
+                        <pre>sudo systemctl restart nginx</pre>
+                        <button id="copiar_reiniciar" class="botao-pequeno">Copiar Comando</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
