@@ -214,7 +214,7 @@ ${usarWebSocket ? `
         }
     });
 
-    function criarNovoProxy(index = proxiesAdicionais.length, caminhoLocalizacao = '/api', urlProxy = 'http://localhost:5000') {
+    function criarNovoProxy(index = proxiesAdicionais.length, caminhoLocalizacao = '/api/', urlProxy = 'http://localhost:5000') {
         const proxyId = `proxy_${index}`;
         const locationId = `location_${index}`;
         const wsId = `ws_${index}`;
