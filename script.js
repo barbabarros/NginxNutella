@@ -144,7 +144,7 @@ ${usarWebSocketPrincipal ? `
                     const usarWebSocket = checkboxWs && checkboxWs.checked;
 
                     config += `
-    location ${localizacao}/ {
+    location ${localizacao} {
         # Configuração de Proxy Adicional
         proxy_pass ${urlProxy}/;
         proxy_http_version 1.1;
